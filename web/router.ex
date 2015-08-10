@@ -9,7 +9,7 @@ defmodule Kegster.Router do
   end
 
   pipeline :api do
-    plug :accepts, ["json"]
+    plug :accepts, ["json"]    
   end
 
   scope "/", Kegster do
@@ -19,7 +19,9 @@ defmodule Kegster.Router do
   end
 
   # Other scopes may use custom stacks.
-  # scope "/api", Kegster do
-  #   pipe_through :api
-  # end
+  scope "/api", Kegster do
+    pipe_through :api
+    resources "/kegerators", API.KegeratorController
+    resources "/kegs", API.KegController
+  end
 end
