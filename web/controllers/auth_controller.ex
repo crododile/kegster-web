@@ -12,5 +12,6 @@ defmodule Kegster.AuthController do
     user = OAuth2.AccessToken.get!(token, "/api/v1/me")
     IO.puts inspect(user)
     IO.puts inspect(token)
+    text(conn, "#{inspect(user)}")
   end
 end

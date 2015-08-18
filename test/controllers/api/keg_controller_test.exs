@@ -2,11 +2,12 @@ defmodule Kegster.API.KegControllerTest do
   use Kegster.ConnCase
   use Timex
 
+  import Kegster.Fixtures
   alias Kegster.Keg
   alias Kegster.Beer
   alias Kegster.Kegerator
 
-  @valid_attrs %{floated_at: Date.now, tapped_at: Date.now, beer: %Beer{}, left_kegerator_handle: %Kegerator{}}
+  @valid_attrs %{floated_at: Date.now, tapped_at: Date.now, beer: fixture(:beer), left_kegerator_handle: %Kegerator{}}
   @invalid_attrs %{}
 
   setup do
@@ -15,7 +16,7 @@ defmodule Kegster.API.KegControllerTest do
       |> Repo.insert!
     kegerator = Kegerator.changeset(%Kegerator{}, %{name: "Level 1"})
       |> Repo.insert!
-    IO.puts inspect(beer)
+    # IO.puts inspect(beer)
     {:ok, conn: conn, beer: beer, kegerator: kegerator}
   end
 
@@ -28,6 +29,7 @@ defmodule Kegster.API.KegControllerTest do
     keg = Keg.changeset(%Keg{}, @valid_attrs |> Map.put(:beer_id, beer.id) |> Map.put(:left_kegerator_handle_id, kegerator.id))
       |> Repo.insert! 
     conn = get conn, keg_path(conn, :show, keg)
+    IO.inspect conn, pretty: true
     assert json_response(conn, 200)["data"] == %{
       "id" => keg.id
     }

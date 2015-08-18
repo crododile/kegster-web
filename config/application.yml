@@ -1,0 +1,4 @@
+client_id: 2c4e189c024dec33065549b523d6f67edc7b09522ac6a9a2b2f0219d27505a60
+client_secret: 04ac30b4dd491603e12629a5a6bee4a5b46a493f6fc33b24a02913140a7bddb2
+dev:
+  redirect_uri: http://localhost:4000/auth/callback
